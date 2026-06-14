@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoSort: Model Performance</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="page">
+        <div class="performance-shell">
+            <div class="card hero">
+                <p class="eyebrow">EcoSort</p>
+                <h1>Model Performance Comparison</h1>
+                <p class="intro">
+                    This page compares the transfer learning MobileNetV2 model with the self-built Simple CNN and shows how their training behavior and generalization differ on TrashNet.
+                </p>
+
+                <div class="action-row">
+                    <a class="button-link" href="{{ url_for('index') }}">Upload Page</a>
+                    <a class="button-link secondary-link" href="{{ url_for('camera') }}">Camera Page</a>
+                </div>
+            </div>
+
+            <div class="card table-card">
+                <h2>Simple Comparison Table</h2>
+                <table class="comparison-table">
+                    <tr>
+                        <th>Model</th>
+                        <th>Main Idea</th>
+                        <th>Strength</th>
+                    </tr>
+                    <tr>
+                        <td>{{ model_labels["mobilenetv2"] }}</td>
+                        <td>Transfer learning from ImageNet</td>
+                        <td>Usually learns faster and gives stronger results</td>
+                    </tr>
+                    <tr>
+                        <td>{{ model_labels["simple_cnn"] }}</td>
+                        <td>Small CNN trained from scratch</td>
+                        <td>Easy to understand and build</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="chart-grid">
+                <div class="card chart-card">
+                    <h2>MobileNetV2 Accuracy</h2>
+                    <img class="chart-image" src="{{ url_for('static', filename='results/mobilenet_accuracy.png') }}" alt="MobileNetV2 accuracy curve">
+                </div>
+
+                <div class="card chart-card">
+                    <h2>Simple CNN Accuracy</h2>
+                    <img class="chart-image" src="{{ url_for('static', filename='results/simple_cnn_accuracy.png') }}" alt="Simple CNN accuracy curve">
+                </div>
+
+                <div class="card chart-card">
+                    <h2>MobileNetV2 Loss</h2>
+                    <img class="chart-image" src="{{ url_for('static', filename='results/mobilenet_loss.png') }}" alt="MobileNetV2 loss curve">
+                </div>
+
+                <div class="card chart-card">
+                    <h2>Simple CNN Loss</h2>
+                    <img class="chart-image" src="{{ url_for('static', filename='results/simple_cnn_loss.png') }}" alt="Simple CNN loss curve">
+                </div>
+
+                <div class="card chart-card">
+                    <h2>MobileNetV2 Confusion Matrix</h2>
+                    <img class="chart-image" src="{{ url_for('static', filename='results/mobilenet_confusion_matrix.png') }}" alt="MobileNetV2 confusion matrix">
+                </div>
+
+                <div class="card chart-card">
+                    <h2>Simple CNN Confusion Matrix</h2>
+                    <img class="chart-image" src="{{ url_for('static', filename='results/simple_cnn_confusion_matrix.png') }}" alt="Simple CNN confusion matrix">
+                </div>
+            </div>
+
+            <div class="card summary-card">
+                <h2>Short Conclusion</h2>
+                <p>
+                    MobileNetV2 performs more steadily overall because transfer learning gives it stronger visual features.
+                    Simple CNN is still valuable for learning, but its later training stages show clearer overfitting on this small dataset.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

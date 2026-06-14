@@ -1,0 +1,34 @@
+Simple CNN Training Results
+Epochs: 20
+
+Epoch 1 - accuracy: 0.3566 - loss: 1.5689 - val_accuracy: 0.4594 - val_loss: 1.4228
+Epoch 2 - accuracy: 0.4644 - loss: 1.3261 - val_accuracy: 0.5168 - val_loss: 1.2267
+Epoch 3 - accuracy: 0.5475 - loss: 1.1822 - val_accuracy: 0.5307 - val_loss: 1.1801
+Epoch 4 - accuracy: 0.5935 - loss: 1.0954 - val_accuracy: 0.5366 - val_loss: 1.1465
+Epoch 5 - accuracy: 0.6340 - loss: 0.9540 - val_accuracy: 0.6198 - val_loss: 1.0508
+Epoch 6 - accuracy: 0.6919 - loss: 0.8264 - val_accuracy: 0.6198 - val_loss: 1.0322
+Epoch 7 - accuracy: 0.7483 - loss: 0.6822 - val_accuracy: 0.6238 - val_loss: 1.0455
+Epoch 8 - accuracy: 0.7859 - loss: 0.5930 - val_accuracy: 0.6059 - val_loss: 1.1622
+Epoch 9 - accuracy: 0.8126 - loss: 0.5052 - val_accuracy: 0.6238 - val_loss: 1.1991
+Epoch 10 - accuracy: 0.8571 - loss: 0.4144 - val_accuracy: 0.6178 - val_loss: 1.3265
+Epoch 11 - accuracy: 0.8887 - loss: 0.3281 - val_accuracy: 0.6297 - val_loss: 1.3968
+Epoch 12 - accuracy: 0.9130 - loss: 0.2584 - val_accuracy: 0.6396 - val_loss: 1.3582
+Epoch 13 - accuracy: 0.9159 - loss: 0.2603 - val_accuracy: 0.6436 - val_loss: 1.4558
+Epoch 14 - accuracy: 0.9194 - loss: 0.2403 - val_accuracy: 0.6158 - val_loss: 1.6683
+Epoch 15 - accuracy: 0.9446 - loss: 0.1619 - val_accuracy: 0.6238 - val_loss: 1.8835
+Epoch 16 - accuracy: 0.9436 - loss: 0.1747 - val_accuracy: 0.6079 - val_loss: 1.9285
+Epoch 17 - accuracy: 0.9367 - loss: 0.1865 - val_accuracy: 0.6218 - val_loss: 2.1525
+Epoch 18 - accuracy: 0.9451 - loss: 0.1707 - val_accuracy: 0.6158 - val_loss: 2.0267
+Epoch 19 - accuracy: 0.9441 - loss: 0.1488 - val_accuracy: 0.6356 - val_loss: 1.9599
+Epoch 20 - accuracy: 0.9540 - loss: 0.1251 - val_accuracy: 0.6158 - val_loss: 2.1538
+
+Final evaluation after 20 epochs:
+accuracy: 0.62
+
+Classification report:
+cardboard - precision: 0.68 - recall: 0.78 - f1-score: 0.73
+glass - precision: 0.56 - recall: 0.60 - f1-score: 0.58
+metal - precision: 0.53 - recall: 0.56 - f1-score: 0.54
+paper - precision: 0.79 - recall: 0.67 - f1-score: 0.73
+plastic - precision: 0.52 - recall: 0.57 - f1-score: 0.55
+trash - precision: 0.59 - recall: 0.38 - f1-score: 0.46

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoSort: A Waste Sorting Assistant</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="page">
+        <div class="home-shell">
+            <div class="card hero">
+                <p class="eyebrow">EcoSort</p>
+                <h1>EcoSort</h1>
+                <h2 class="hero-subtitle">AI Waste Sorting Assistant</h2>
+                <p class="intro">
+                    Upload a waste image or type an item name to get a sorting suggestion, explanation, and recycling tip.
+                </p>
+
+                <div class="badge-row">
+                    <span class="badge">6 TrashNet classes</span>
+                    <span class="badge">Image upload prediction</span>
+                    <span class="badge">Ask by Text</span>
+                    <span class="badge">Model comparison</span>
+                </div>
+
+                <div class="action-row hero-actions">
+                    <a class="button-link" href="#upload-section">Upload Image</a>
+                    <a class="button-link secondary-link" href="#text-section">Ask by Text</a>
+                </div>
+            </div>
+
+            <div id="upload-section" class="card upload-card">
+                <h2>Upload Image</h2>
+                <p class="note">Choose an image file to compare the transfer learning model and the self-built CNN.</p>
+
+                {% if model_error %}
+                <div class="message error">{{ model_error }}</div>
+                {% endif %}
+
+                {% if message %}
+                <div class="message">{{ message }}</div>
+                {% endif %}
+
+                <div class="model-list">
+                    <p>Models used in this page:</p>
+                    <ul>
+                        <li>{{ model_labels["mobilenetv2"] }}</li>
+                        <li>{{ model_labels["simple_cnn"] }}</li>
+                    </ul>
+                </div>
+
+                <form action="{{ url_for('predict') }}" method="post" enctype="multipart/form-data">
+                    <label class="upload-box" for="image">
+                        <span class="upload-icon">♻️</span>
+                        <span class="upload-title">Select an image file</span>
+                        <span class="upload-text">png, jpg, jpeg, webp</span>
+                        <input id="image" type="file" name="image" accept=".png,.jpg,.jpeg,.webp" required>
+                    </label>
+
+                    <div id="preview-box" class="preview-box hidden">
+                        <p class="preview-label">Selected image preview</p>
+                        <img id="preview-image" class="small-preview" src="" alt="Selected image preview">
+                    </div>
+
+                    <div class="action-row">
+                        <button type="submit">Predict Image</button>
+                        <a class="button-link secondary-link" href="{{ url_for('camera') }}">Open Camera Page</a>
+                        <a class="button-link secondary-link" href="{{ url_for('model_performance') }}">Model Performance</a>
+                    </div>
+                </form>
+            </div>
+
+            <div id="text-section" class="card lookup-card">
+                <h2>Ask by Text</h2>
+                <p class="note">Type an item name and get a simple sorting suggestion.</p>
+
+                <label class="text-input-label" for="text-item-input">Item name</label>
+                <div class="text-input-row">
+                    <input
+                        id="text-item-input"
+                        class="text-input"
+                        type="text"
+                        placeholder="Enter an item name"
+                    >
+                    <button id="text-lookup-button" type="button">Get Suggestion</button>
+                </div>
+
+                <div id="text-result" class="lookup-result hidden">
+                    <div class="result-panel-header">Your Sorting Guidance</div>
+                    <div id="text-result-message" class="message hidden"></div>
+
+                    <div id="text-result-details" class="detail-stack hidden">
+                        <div class="result-grid result-grid-wide">
+                            <div class="info-card highlight-card">
+                                <h2>Suggested Category</h2>
+                                <p id="text-result-category" class="big-number"></p>
+                            </div>
+                        </div>
+
+                        <div class="info-card result-block detail-panel">
+                            <h2>Why this category?</h2>
+                            <p id="text-result-why"></p>
+                        </div>
+
+                        <div class="info-card detail-panel">
+                            <h2>Recycling Tip</h2>
+                            <p id="text-result-tip"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='ecosort.js') }}"></script>
+</body>
+</html>

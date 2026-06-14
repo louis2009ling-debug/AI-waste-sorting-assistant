@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoSort: Prediction Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="page">
+        <div class="result-shell">
+            <div class="card image-card result-main-image">
+                <p class="eyebrow">EcoSort</p>
+                <h1>Image Prediction Result</h1>
+                <img class="preview" src="{{ image_url }}" alt="Uploaded waste image">
+                <div class="action-row result-actions">
+                    <a class="button-link" href="{{ url_for('index') }}">Upload Another Image</a>
+                    <a class="button-link secondary-link" href="{{ url_for('camera') }}">Go To Camera Page</a>
+                    <a class="button-link secondary-link" href="{{ url_for('model_performance') }}">Model Performance</a>
+                </div>
+            </div>
+
+            <div class="model-results-grid">
+                <div class="card result-card" data-result-card data-category="{{ mobilenet_result.predicted_class|lower }}" data-tip="{{ mobilenet_result.suggestion }}">
+                    <p class="eyebrow">{{ mobilenet_result.model_name }}</p>
+                    <h1 data-field="heading-category">{{ mobilenet_result.predicted_class|title }}</h1>
+
+                    <div class="result-summary-grid">
+                        <div class="info-card">
+                            <h2>Category</h2>
+                            <p class="big-number" data-field="category">{{ mobilenet_result.predicted_class|title }}</p>
+                        </div>
+
+                        <div class="info-card">
+                            <h2>Confidence / Probability</h2>
+                            <p class="big-number">{{ mobilenet_result.confidence }}%</p>
+                        </div>
+
+                        <div class="info-card">
+                            <h2>Recognition Score</h2>
+                            <p class="big-number">{{ mobilenet_result.recognition_score }} / 100</p>
+                        </div>
+                    </div>
+
+                    <div class="info-card result-block">
+                        <h2>Why this category?</h2>
+                        <p data-field="explanation"></p>
+                    </div>
+
+                    <div class="info-card result-block">
+                        <h2>Top-3 Predictions</h2>
+                        <ul class="prediction-list">
+                            {% for item in mobilenet_result.top_predictions %}
+                            <li>
+                                <span>{{ loop.index }}. {{ item.label|title }}</span>
+                                <strong>{{ item.score }}%</strong>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                    <div class="info-card">
+                        <h2>Recycling Tip</h2>
+                        <p data-field="tip">{{ mobilenet_result.suggestion }}</p>
+                    </div>
+                </div>
+
+                <div class="card result-card" data-result-card data-category="{{ simple_cnn_result.predicted_class|lower }}" data-tip="{{ simple_cnn_result.suggestion }}">
+                    <p class="eyebrow">{{ simple_cnn_result.model_name }}</p>
+                    <h1 data-field="heading-category">{{ simple_cnn_result.predicted_class|title }}</h1>
+
+                    <div class="result-summary-grid">
+                        <div class="info-card">
+                            <h2>Category</h2>
+                            <p class="big-number" data-field="category">{{ simple_cnn_result.predicted_class|title }}</p>
+                        </div>
+
+                        <div class="info-card">
+                            <h2>Confidence / Probability</h2>
+                            <p class="big-number">{{ simple_cnn_result.confidence }}%</p>
+                        </div>
+
+                        <div class="info-card">
+                            <h2>Recognition Score</h2>
+                            <p class="big-number">{{ simple_cnn_result.recognition_score }} / 100</p>
+                        </div>
+                    </div>
+
+                    <div class="info-card result-block">
+                        <h2>Why this category?</h2>
+                        <p data-field="explanation"></p>
+                    </div>
+
+                    <div class="info-card result-block">
+                        <h2>Top-3 Predictions</h2>
+                        <ul class="prediction-list">
+                            {% for item in simple_cnn_result.top_predictions %}
+                            <li>
+                                <span>{{ loop.index }}. {{ item.label|title }}</span>
+                                <strong>{{ item.score }}%</strong>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                    <div class="info-card">
+                        <h2>Recycling Tip</h2>
+                        <p data-field="tip">{{ simple_cnn_result.suggestion }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='ecosort.js') }}"></script>
+</body>
+</html>

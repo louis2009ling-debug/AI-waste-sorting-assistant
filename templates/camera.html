@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoSort: Camera Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="page">
+        <div class="camera-page-shell">
+            <div class="card hero">
+                <p class="eyebrow">EcoSort</p>
+                <h1>Camera Prediction</h1>
+                <p class="intro">
+                    Use your camera to compare the transfer learning model and the self-built CNN on the same waste item.
+                </p>
+            </div>
+
+            <div class="card camera-controls-card">
+                <h2>Camera Capture</h2>
+                <p class="note">This page uses your browser camera only. It takes one picture when you click the button.</p>
+
+                {% if model_error %}
+                <div class="message error">{{ model_error }}</div>
+                {% endif %}
+
+                <div id="camera-message" class="message hidden"></div>
+
+                <div class="camera-box">
+                    <video id="camera-video" autoplay playsinline muted></video>
+                    <canvas id="camera-canvas" class="hidden"></canvas>
+                </div>
+
+                <div class="action-row result-actions">
+                    <button id="start-camera-button" type="button">Open Camera</button>
+                    <button id="capture-button" type="button" disabled>Capture And Predict</button>
+                    <a class="button-link secondary-link" href="{{ url_for('index') }}">Go To Upload Page</a>
+                    <a class="button-link secondary-link" href="{{ url_for('model_performance') }}">Model Performance</a>
+                </div>
+            </div>
+
+            <div id="camera-result" class="camera-result-shell hidden">
+                <div class="card image-card result-main-image">
+                    <p class="eyebrow">Captured Image</p>
+                    <img id="captured-image" class="preview" src="" alt="Captured camera image">
+                </div>
+
+                <div class="model-results-grid">
+                    <div id="mobilenet-card" class="card result-card" data-result-card data-category="" data-tip="">
+                        <p id="mobilenet-name" class="eyebrow"></p>
+                        <h1 id="mobilenet-class" data-field="heading-category"></h1>
+
+                        <div class="result-summary-grid">
+                            <div class="info-card">
+                                <h2>Category</h2>
+                                <p id="mobilenet-category" class="big-number" data-field="category"></p>
+                            </div>
+
+                            <div class="info-card">
+                                <h2>Confidence / Probability</h2>
+                                <p id="mobilenet-confidence" class="big-number"></p>
+                            </div>
+
+                            <div class="info-card">
+                                <h2>Recognition Score</h2>
+                                <p id="mobilenet-score" class="big-number"></p>
+                            </div>
+                        </div>
+
+                        <div class="info-card result-block">
+                            <h2>Why this category?</h2>
+                            <p id="mobilenet-explanation" data-field="explanation"></p>
+                        </div>
+
+                        <div class="info-card result-block">
+                            <h2>Top-3 Predictions</h2>
+                            <ul id="mobilenet-top3" class="prediction-list"></ul>
+                        </div>
+
+                        <div class="info-card">
+                            <h2>Recycling Tip</h2>
+                            <p id="mobilenet-suggestion" data-field="tip"></p>
+                        </div>
+                    </div>
+
+                    <div id="cnn-card" class="card result-card" data-result-card data-category="" data-tip="">
+                        <p id="cnn-name" class="eyebrow"></p>
+                        <h1 id="cnn-class" data-field="heading-category"></h1>
+
+                        <div class="result-summary-grid">
+                            <div class="info-card">
+                                <h2>Category</h2>
+                                <p id="cnn-category" class="big-number" data-field="category"></p>
+                            </div>
+
+                            <div class="info-card">
+                                <h2>Confidence / Probability</h2>
+                                <p id="cnn-confidence" class="big-number"></p>
+                            </div>
+
+                            <div class="info-card">
+                                <h2>Recognition Score</h2>
+                                <p id="cnn-score" class="big-number"></p>
+                            </div>
+                        </div>
+
+                        <div class="info-card result-block">
+                            <h2>Why this category?</h2>
+                            <p id="cnn-explanation" data-field="explanation"></p>
+                        </div>
+
+                        <div class="info-card result-block">
+                            <h2>Top-3 Predictions</h2>
+                            <ul id="cnn-top3" class="prediction-list"></ul>
+                        </div>
+
+                        <div class="info-card">
+                            <h2>Recycling Tip</h2>
+                            <p id="cnn-suggestion" data-field="tip"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='ecosort.js') }}"></script>
+    <script src="{{ url_for('static', filename='camera.js') }}"></script>
+</body>
+</html>
